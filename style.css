@@ -90,6 +90,7 @@ input:focus{
 
 .profile-actions-area, .settings-area{
     display: flex;
+    
 }
 
 /* styling main section */
@@ -103,6 +104,9 @@ input:focus{
     flex-direction: column;
     margin-left: 15px;
     margin-top: 5px;
+    color: #5f6368;
+    width: 80px;
+    overflow-x: hidden;
 }
 
 .active{
@@ -115,4 +119,43 @@ input:focus{
 
 .active:hover{
     background-color: #fef0c3;
+}
+
+.sidebar .sidebar-item{
+    margin-left: 18px;
+    padding: 3px 0px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.sidebar-item .sidebar-text{
+    color: black;
+    margin-left: 20px;
+    font-size: 0.9rem;
+    width: 250px;
+}
+
+.sidebar-item:nth-child(1){
+    margin-top: 5px;
+}
+
+/* Main form */
+.form-container{
+    max-width: 598px;
+    height: 46px;
+    margin: 40px auto;
+    box-shadow: inset 1px 1px 0 none;
+}
+
+.form-container form{
+    display: flex;
+    justify-content: space-between;
+}
+
+.note-text{
+    border: none;
+    font-size: 1rem;
+    height: 100%;
+    padding: 10px;
 }

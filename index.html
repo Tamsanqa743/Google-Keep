@@ -61,13 +61,37 @@
 
     <main>
         <div class="sidebar">
-            <span class="material-symbols-outlined hover active">lightbulb</span>
-            <span class="material-symbols-outlined hover ">notifications</span>
-            <span class="material-symbols-outlined hover ">mode_edit_outline</span>
-            <span class="material-symbols-outlined hover ">archive</span>
-            <span class="material-symbols-outlined hover ">delete</span>
+            <div class="sidebar-item">
+                <span class="material-symbols-outlined hover active">lightbulb</span>
+                <span class="sidebar-text">Notes</span>
+            </div>
+            <div class="sidebar-item">
+                <span class="material-symbols-outlined hover ">notifications</span>       
+                <span class="sidebar-text">Reminders</span>  
+            </div>
+            <div class="sidebar-item">
+                <span class="material-symbols-outlined hover ">mode_edit_outline</span> 
+                <span class="sidebar-text">Edit Labels</span>              
+            </div>
+            <div class="sidebar-item">
+                <span class="material-symbols-outlined hover ">archive</span>
+                <span class="sidebar-text">Archive</span>             
+            </div>
+            <div class="sidebar-item">
+                <span class="material-symbols-outlined hover ">delete</span>
+                <span class="sidebar-text">Delete</span>               
+            </div>
         </div>
-        <div class="form-container"></div>
+        <div class="form-container">
+            <form >
+                <input class="note-text" type="text" placeholder="Take a note...">
+                <div class="form-actions">
+                    <span class="material-symbols-outlined hover ">check</span>
+                    <span class="material-symbols-outlined hover ">brush</span>
+                    <span class="material-symbols-outlined hover ">image</span>
+                </div>
+            </form>
+        </div>
 
     </main>
 </body>
