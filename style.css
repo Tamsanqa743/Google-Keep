@@ -100,6 +100,7 @@ input:focus{
 .sidebar{
     position: fixed;
     left: 0;
+    top: 64px;
     display: flex;
     flex-direction: column;
     margin-left: 15px;
@@ -142,15 +143,22 @@ input:focus{
 
 /* Main form */
 .form-container{
+    background: #fff;
     max-width: 598px;
-    height: 46px;
-    margin: 40px auto;
-    box-shadow: inset 1px 1px 0 none;
+    /* height: 46px; */
+    margin: 32px auto;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302),0 2px 6px 2px rgba(60,64,67,0.149);
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px;
 }
 
 .form-container form{
     display: flex;
     justify-content: space-between;
+    height: 100%;
+    color: #5f6368;
+    align-items: center;
 }
 
 .note-text{
@@ -158,4 +166,54 @@ input:focus{
     font-size: 1rem;
     height: 100%;
     padding: 10px;
+    margin-left: 10px;
+    width: 100%;
+    margin-right: 10px;
+    padding-left: 10px;
+}
+
+.note-title{
+    border: none;
+    font-size: 1rem;
+    height: 100%;
+    padding: 10px;
+    margin-left: 10px;
+    width: 100%;
+    margin-right: 10px;
+    padding-left: 10px;
+}
+
+.form-actions{
+    display: flex;
+}
+
+.active-form{
+    width: 100%;
+}
+
+.active-form form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.active-form form .form-actions {
+    display: flex;
+    width: 100%;
+}
+
+.active-form .form-actions .icons{
+    display: flex;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.close-btn{
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.small-icon{
+    size: 1rem;
 }
