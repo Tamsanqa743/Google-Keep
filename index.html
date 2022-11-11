@@ -82,8 +82,8 @@
                 <span class="sidebar-text">Delete</span>               
             </div>
         </div>
-        <div class="form-container">
-            <form >
+        <div class="form-container inactive-form">
+            <form>
                 <input class="note-text" type="text" placeholder="Take a note...">
                 <div class="form-actions">
 
@@ -105,9 +105,9 @@
 
 
         <div class="form-container active-form">
-            <form >
-                <input type="text" class="note-title" placeholder="Title">
-                <input class="note-text" type="text" placeholder="Take a note...">
+            <form class=".form" id="form">
+                <input id = "note-title" type="text" class="note-title" placeholder="Title">
+                <input id="note-text" class="note-text" type="text" placeholder="Take a note...">
                 <div class="form-actions">
                     <div class="icons">
 
@@ -157,7 +157,7 @@
 
         <!-- notes section -->
         <div class="notes">
-            <div class="note">
+            <!-- <div class="note">
                 <span class="material-icons check-circle">check_circle</span>
                 <div class="title">Title</div>
                 <div class="text">Text</div>
@@ -201,9 +201,9 @@
                         <span class="tooltip-text">Redo</span>
                     </div>
                 </div>
-                </div>
+                </div> -->
 
-                <div class="note">
+                <!-- <div class="note">
                     <span class="material-icons check-circle">check_circle</span>
                     <div class="title">Title</div>
                     <div class="text">Text</div>
@@ -247,9 +247,9 @@
                             <span class="tooltip-text">Redo</span>
                         </div>
                     </div>
-                    </div>
+                    </div> -->
 
-
+<!-- 
                     <div class="note">
                         <span class="material-icons check-circle">check_circle</span>
                         <div class="title">Title</div>
@@ -294,12 +294,12 @@
                                 <span class="tooltip-text">Redo</span>
                             </div>
                         </div>
-                        </div>
-            </div>
+                        </div> -->
+        </div>
         <div class="modal">
             <div class="modal-content">
                 <div class="form-container active-form">
-                    <form >
+                    <form class=".form" id="modal-form">
                         <input type="text" class="note-title" placeholder="Title">
                         <input class="note-text" type="text" placeholder="Take a note...">
                         <div class="form-actions">
@@ -353,4 +353,6 @@
         </div>
     </main>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cuid/1.3.8/browser-cuid.min.js"></script>
+<script src="./app.js"></script>
 </html>
