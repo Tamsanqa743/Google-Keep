@@ -61,14 +61,298 @@
 
     <main>
         <div class="sidebar">
-            <span class="material-symbols-outlined hover active">lightbulb</span>
-            <span class="material-symbols-outlined hover ">notifications</span>
-            <span class="material-symbols-outlined hover ">mode_edit_outline</span>
-            <span class="material-symbols-outlined hover ">archive</span>
-            <span class="material-symbols-outlined hover ">delete</span>
+            <div class="sidebar-item">
+                <span class="material-symbols-outlined hover active">lightbulb</span>
+                <span class="sidebar-text">Notes</span>
+            </div>
+            <div class="sidebar-item">
+                <span class="material-symbols-outlined hover ">notifications</span>       
+                <span class="sidebar-text">Reminders</span>  
+            </div>
+            <div class="sidebar-item">
+                <span class="material-symbols-outlined hover ">mode_edit_outline</span> 
+                <span class="sidebar-text">Edit Labels</span>              
+            </div>
+            <div class="sidebar-item">
+                <span class="material-symbols-outlined hover ">archive</span>
+                <span class="sidebar-text">Archive</span>             
+            </div>
+            <div class="sidebar-item">
+                <span class="material-symbols-outlined hover ">delete</span>
+                <span class="sidebar-text">Delete</span>               
+            </div>
         </div>
-        <div class="form-container"></div>
+        <div class="form-container inactive-form">
+            <form>
+                <input class="note-text" type="text" placeholder="Take a note...">
+                <div class="form-actions">
 
+                    <div class="tootip">
+                        <span class="material-symbols-outlined hover">check_box</span>
+                        <span class="tooltip-text">New List</span>
+                    </div>
+                    <div class="tootip">
+                        <span class="material-symbols-outlined hover">brush</span>
+                        <span class="tooltip-text">New drawing</span>
+                    </div>
+                    <div class="tootip">
+                        <span class="material-symbols-outlined hover">image</span>
+                        <span class="tooltip-text">New note with image</span>
+                    </div>  
+                </div>
+            </form>
+        </div>
+
+
+        <div class="form-container active-form">
+            <form class=".form" id="form">
+                <input id = "note-title" type="text" class="note-title" placeholder="Title">
+                <input id="note-text" class="note-text" type="text" placeholder="Take a note...">
+                <div class="form-actions">
+                    <div class="icons">
+
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">add_alert</span>
+                            <span class="tooltip-text">Remind me</span>
+                        </div>
+
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">person_add</span>
+                            <span class="tooltip-text">Collaborator</span>
+                        </div>
+
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">palette</span>
+                            <span class="tooltip-text">Background options</span>
+                        </div>
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">check_box</span>
+                            <span class="tooltip-text">New List</span>
+                        </div>
+                          
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">archive</span>
+                            <span class="tooltip-text">Archive</span>
+                        </div>
+
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">more_vert</span>
+                            <span class="tooltip-text">More</span>
+                        </div>
+
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">undo</span>
+                            <span class="tooltip-text">Undo</span>
+                        </div>
+
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">redo</span>
+                            <span class="tooltip-text">Redo</span>
+                        </div>
+                    </div>
+                    <button class="close-btn">Close</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- notes section -->
+        <div class="notes">
+            <!-- <div class="note">
+                <span class="material-icons check-circle">check_circle</span>
+                <div class="title">Title</div>
+                <div class="text">Text</div>
+                <div class="note-footer">
+                    <div class="tootip">
+                        <span class="material-symbols-outlined hover small-icon">add_alert</span>
+                        <span class="tooltip-text">Remind me</span>
+                    </div>
+
+                    <div class="tootip">
+                        <span class="material-symbols-outlined hover small-icon">person_add</span>
+                        <span class="tooltip-text">Collaborator</span>
+                    </div>
+
+                    <div class="tootip">
+                        <span class="material-symbols-outlined hover small-icon">palette</span>
+                        <span class="tooltip-text">Background options</span>
+                    </div>
+                    <div class="tootip">
+                        <span class="material-symbols-outlined hover small-icon">check_box</span>
+                        <span class="tooltip-text">New List</span>
+                    </div>
+                      
+                    <div class="tootip">
+                        <span class="material-symbols-outlined hover small-icon">archive</span>
+                        <span class="tooltip-text">Archive</span>
+                    </div>
+
+                    <div class="tootip">
+                        <span class="material-symbols-outlined hover small-icon">more_vert</span>
+                        <span class="tooltip-text">More</span>
+                    </div>
+
+                    <div class="tootip">
+                        <span class="material-symbols-outlined hover small-icon">undo</span>
+                        <span class="tooltip-text">Undo</span>
+                    </div>
+
+                    <div class="tootip">
+                        <span class="material-symbols-outlined hover small-icon">redo</span>
+                        <span class="tooltip-text">Redo</span>
+                    </div>
+                </div>
+                </div> -->
+
+                <!-- <div class="note">
+                    <span class="material-icons check-circle">check_circle</span>
+                    <div class="title">Title</div>
+                    <div class="text">Text</div>
+                    <div class="note-footer">
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">add_alert</span>
+                            <span class="tooltip-text">Remind me</span>
+                        </div>
+    
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">person_add</span>
+                            <span class="tooltip-text">Collaborator</span>
+                        </div>
+    
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">palette</span>
+                            <span class="tooltip-text">Background options</span>
+                        </div>
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">check_box</span>
+                            <span class="tooltip-text">New List</span>
+                        </div>
+                          
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">archive</span>
+                            <span class="tooltip-text">Archive</span>
+                        </div>
+    
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">more_vert</span>
+                            <span class="tooltip-text">More</span>
+                        </div>
+    
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">undo</span>
+                            <span class="tooltip-text">Undo</span>
+                        </div>
+    
+                        <div class="tootip">
+                            <span class="material-symbols-outlined hover small-icon">redo</span>
+                            <span class="tooltip-text">Redo</span>
+                        </div>
+                    </div>
+                    </div> -->
+
+<!-- 
+                    <div class="note">
+                        <span class="material-icons check-circle">check_circle</span>
+                        <div class="title">Title</div>
+                        <div class="text">Text</div>
+                        <div class="note-footer">
+                            <div class="tootip">
+                                <span class="material-symbols-outlined hover small-icon">add_alert</span>
+                                <span class="tooltip-text">Remind me</span>
+                            </div>
+        
+                            <div class="tootip">
+                                <span class="material-symbols-outlined hover small-icon">person_add</span>
+                                <span class="tooltip-text">Collaborator</span>
+                            </div>
+        
+                            <div class="tootip">
+                                <span class="material-symbols-outlined hover small-icon">palette</span>
+                                <span class="tooltip-text">Background options</span>
+                            </div>
+                            <div class="tootip">
+                                <span class="material-symbols-outlined hover small-icon">check_box</span>
+                                <span class="tooltip-text">New List</span>
+                            </div>
+                              
+                            <div class="tootip">
+                                <span class="material-symbols-outlined hover small-icon">archive</span>
+                                <span class="tooltip-text">Archive</span>
+                            </div>
+        
+                            <div class="tootip">
+                                <span class="material-symbols-outlined hover small-icon">more_vert</span>
+                                <span class="tooltip-text">More</span>
+                            </div>
+        
+                            <div class="tootip">
+                                <span class="material-symbols-outlined hover small-icon">undo</span>
+                                <span class="tooltip-text">Undo</span>
+                            </div>
+        
+                            <div class="tootip">
+                                <span class="material-symbols-outlined hover small-icon">redo</span>
+                                <span class="tooltip-text">Redo</span>
+                            </div>
+                        </div>
+                        </div> -->
+        </div>
+        <div class="modal">
+            <div class="modal-content">
+                <div class="form-container active-form">
+                    <form class=".form" id="modal-form">
+                        <input type="text" class="note-title" placeholder="Title">
+                        <input class="note-text" type="text" placeholder="Take a note...">
+                        <div class="form-actions">
+                            <div class="icons">
+        
+                                <div class="tootip">
+                                    <span class="material-symbols-outlined hover small-icon">add_alert</span>
+                                    <span class="tooltip-text">Remind me</span>
+                                </div>
+        
+                                <div class="tootip">
+                                    <span class="material-symbols-outlined hover small-icon">person_add</span>
+                                    <span class="tooltip-text">Collaborator</span>
+                                </div>
+        
+                                <div class="tootip">
+                                    <span class="material-symbols-outlined hover small-icon">palette</span>
+                                    <span class="tooltip-text">Background options</span>
+                                </div>
+                                <div class="tootip">
+                                    <span class="material-symbols-outlined hover small-icon">check_box</span>
+                                    <span class="tooltip-text">New List</span>
+                                </div>
+                                  
+                                <div class="tootip">
+                                    <span class="material-symbols-outlined hover small-icon">archive</span>
+                                    <span class="tooltip-text">Archive</span>
+                                </div>
+        
+                                <div class="tootip">
+                                    <span class="material-symbols-outlined hover small-icon">more_vert</span>
+                                    <span class="tooltip-text">More</span>
+                                </div>
+        
+                                <div class="tootip">
+                                    <span class="material-symbols-outlined hover small-icon">undo</span>
+                                    <span class="tooltip-text">Undo</span>
+                                </div>
+        
+                                <div class="tootip">
+                                    <span class="material-symbols-outlined hover small-icon">redo</span>
+                                    <span class="tooltip-text">Redo</span>
+                                </div>
+                            </div>
+                            <button class="close-btn">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
     </main>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cuid/1.3.8/browser-cuid.min.js"></script>
+<script src="./app.js"></script>
 </html>
