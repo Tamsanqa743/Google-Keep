@@ -8,8 +8,10 @@ class Note{
 
 class App{
     constructor(){
-        this.notes = [new Note("hello", "test title", "test text")];
+        this.notes = JSON.parse(localStorage.getItem('notes')) || [];
+        // [new Note("hello", "test title", "test text")];
         this.selectedNoteId = "";
+        this.miniSidebar = true;
         this.$activeForm = document.querySelector(".active-form");
         this.$inactiveForm = document.querySelector(".inactive-form");
         this.$noteTitle = document.querySelector("#note-title");
@@ -20,9 +22,13 @@ class App{
         this.$modalForm = document.querySelector("#modal-form");
         this.$modalTitle = document.querySelector("#modal-title");
         this.$modalText = document.querySelector("#modal-text");
+        this.$closeModalForm = document.querySelector("#modal-btn")
+        this.$sidebar = document.querySelector(".sidebar");
+        this.$sidebarActiveItem = document.querySelector(".active-item");
+
 
         this.addEventListeners();
-        this.displayNotes();
+        this.render();
     }
 
     addEventListeners(){
@@ -40,6 +46,18 @@ class App{
             const text = this.$noteText.value;
             this.addNote({title, text});
             this.closeActiveForm();
+        })
+
+        this.$modalForm.addEventListener("submit", (event)=>{
+            event.preventDefault();
+        })
+
+        this.$sidebar.addEventListener("mouseover", (event)=>{
+            this.handleToggleSidebar();
+        })
+        this.$sidebar.addEventListener("mouseout", (event)=>{
+            this.handleToggleSidebar();
+            
         })
     }
 
@@ -78,7 +96,7 @@ class App{
         if (text != ""){
             const newNote = new Note(cuid(),title, text);
             this.notes  = [...this.notes, newNote];
-            this.displayNotes();
+            this.render();
         }
     }
 
@@ -89,12 +107,12 @@ class App{
                 note.text = text;
             }
         })
-        this.displayNotes()
+        this.render()
     }
 
     deleteNote(id) {
         this.notes = this.notes.filter((note) => note.id != id);
-        this.displayNotes();
+        this.render();
       }
 
     handleMouseOverNote(element){
@@ -125,6 +143,22 @@ class App{
         }
     }
 
+    handleToggleSidebar(){
+        if(this.miniSidebar){
+            this.$sidebar.style.width = "250px";
+            this.$sidebar.classList.add("sidebar-hover");
+            this.$sidebarActiveItem.classList.add("sidebar-active-item");
+            this.miniSidebar = false;
+
+        }
+        else{
+            this.$sidebar.style.width = "80px";
+            this.$sidebar.classList.remove("sidebar-hover");
+            this.$sidebarActiveItem.classList.remove("sidebar-active-item");
+            this.miniSidebar = true;
+        }
+    }
+
     openModal(event){
         const $selectedNote = event.target.closest(".note");
         if($selectedNote && !event.target.closest(".archive")){
@@ -138,13 +172,21 @@ class App{
     closeModal(event){
 
         const isModalFormClickedOn = this.$modalForm.contains(event.target);
-        if (!isModalFormClickedOn && this.$modal.classList.contains("open-modal")){
+        const isCloseModalBtn = this.$closeModalForm.contains(event.target);
+        if ((!isModalFormClickedOn || isCloseModalBtn) && this.$modal.classList.contains("open-modal")){
             this.editNote(this.selectedNoteId, {title:this.$modalTitle.value, text: this.$modalText.value})
             this.$modal.classList.remove("open-modal");
         }
     }
 
-    
+        saveNotes(){
+            localStorage.setItem('notes', JSON.stringify(this.notes));
+        }
+
+        render(){
+            this.saveNotes();
+            this.displayNotes();
+        }
       displayNotes() {
         this.$notes.innerHTML = this.notes.map((note) =>
           `
