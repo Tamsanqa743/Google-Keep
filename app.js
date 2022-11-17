@@ -8,21 +8,28 @@ class Note{
 
 class App{
     constructor(){
-        this.notes = [new Note(1, "test title", "test text")];
+        this.notes = [new Note("hello", "test title", "test text")];
         this.$activeForm = document.querySelector(".active-form");
         this.$inactiveForm = document.querySelector(".inactive-form");
         this.$noteTitle = document.querySelector("#note-title");
         this.$noteText = document.querySelector("#note-text");
         this.$notes = document.querySelector(".notes");
         this.$form = document.querySelector("#form");
-        console.log(this.$activeForm);
+        this.$modal = document.querySelector(".modal");
+        this.$modalForm = document.querySelector("#modal-form");
+        this.$modalTitle = document.querySelector("#modal-title");
+        this.$modalText = document.querySelector("#modal-text");
+
         this.addEventListeners();
-       this.displayNotes();
+        this.displayNotes();
     }
 
     addEventListeners(){
         document.body.addEventListener("click", (event) =>{
             this.handleFormClick(event);
+            this.closeModal(event);
+            this.openModal(event);
+            
         })
 
         this.$form.addEventListener("submit", (event)=>{
@@ -48,12 +55,20 @@ class App{
         this.addNote({title, text});
             this.closeActiveForm();
         }
+
     }
 
     openActiveForm(){
         this.$inactiveForm.style.display = "none";
         this.$activeForm.style.display = "block";
         this.$noteText.focus();
+    }
+    closeModal(event){
+
+        const isModalFormClickedOn = this.$modalForm.contains(event.target);
+        if (!isModalFormClickedOn && this.$modal.classList.contains("open-modal")){
+            this.$modal.classList.remove("open-modal");
+        }
     }
 
     closeActiveForm(){
@@ -84,11 +99,38 @@ class App{
         this.notes = this.notes.filter((note) => note.id != id);
       }
 
+    handleMouseOverNote(element){
+        const $note = document.querySelector("#"+element.id);
+        const $checkNote = $note.querySelector(".check-circle");
+        const $noteFooter = $note.querySelector(".note-footer");
+
+        $checkNote.style.visibility = "visible";
+        $noteFooter.style.visibility = "visible";
+    }
+
+    handleMouseOutNote(element){
+        const $note = document.querySelector("#"+element.id);
+        const $checkNote = $note.querySelector(".check-circle");
+        const $noteFooter = $note.querySelector(".note-footer");
+
+        $checkNote.style.visibility = "hidden";
+        $noteFooter.style.visibility = "hidden";
+    }
+
+    openModal(event){
+        const $selectedNote = event.target.closest(".note");
+        if($selectedNote){
+            this.$modalTitle.value = $selectedNote.children[1].innerHTML;
+            this.$modalText.value = $selectedNote.children[2].innerHTML;
+            this.$modal.classList.add("open-modal");
+        }
+    }
+
     
       displayNotes() {
         this.$notes.innerHTML = this.notes.map((note) =>
           `
-          <div class="note" id="${note.id}">
+          <div class="note" id="${note.id}" onmouseover="app.handleMouseOverNote(this)" onmouseout="app.handleMouseOutNote(this)">
                 <span class="material-icons check-circle">check_circle</span>
                 <div class="title">${note.title}</div>
                 <div class="text">${note.text}</div>
@@ -137,4 +179,4 @@ class App{
       }
 }
 
-const a = new App(); 
+const app = new App(); 
