@@ -9,6 +9,7 @@ class Note{
 class App{
     constructor(){
         this.notes = [new Note("hello", "test title", "test text")];
+        this.selectedNoteId = "";
         this.$activeForm = document.querySelector(".active-form");
         this.$inactiveForm = document.querySelector(".inactive-form");
         this.$noteTitle = document.querySelector("#note-title");
@@ -29,6 +30,7 @@ class App{
             this.handleFormClick(event);
             this.closeModal(event);
             this.openModal(event);
+            this.handleAchiving(event);
             
         })
 
@@ -63,13 +65,7 @@ class App{
         this.$activeForm.style.display = "block";
         this.$noteText.focus();
     }
-    closeModal(event){
-
-        const isModalFormClickedOn = this.$modalForm.contains(event.target);
-        if (!isModalFormClickedOn && this.$modal.classList.contains("open-modal")){
-            this.$modal.classList.remove("open-modal");
-        }
-    }
+   
 
     closeActiveForm(){
         this.$inactiveForm.style.display = "block";
@@ -93,10 +89,12 @@ class App{
                 note.text = text;
             }
         })
+        this.displayNotes()
     }
 
     deleteNote(id) {
         this.notes = this.notes.filter((note) => note.id != id);
+        this.displayNotes();
       }
 
     handleMouseOverNote(element){
@@ -116,13 +114,33 @@ class App{
         $checkNote.style.visibility = "hidden";
         $noteFooter.style.visibility = "hidden";
     }
+    handleAchiving(event){
+        const $selectedNote = event.target.closest(".note");
+        if($selectedNote && event.target.closest(".archive")){
+            this.selectedNoteId = $selectedNote.id;
+            this.deleteNote(this.selectedNoteId);
+        }
+        else{
+            return;
+        }
+    }
 
     openModal(event){
         const $selectedNote = event.target.closest(".note");
-        if($selectedNote){
+        if($selectedNote && !event.target.closest(".archive")){
+            this.selectedNoteId = $selectedNote.id;
             this.$modalTitle.value = $selectedNote.children[1].innerHTML;
             this.$modalText.value = $selectedNote.children[2].innerHTML;
             this.$modal.classList.add("open-modal");
+        }
+    }
+
+    closeModal(event){
+
+        const isModalFormClickedOn = this.$modalForm.contains(event.target);
+        if (!isModalFormClickedOn && this.$modal.classList.contains("open-modal")){
+            this.editNote(this.selectedNoteId, {title:this.$modalTitle.value, text: this.$modalText.value})
+            this.$modal.classList.remove("open-modal");
         }
     }
 
@@ -154,7 +172,7 @@ class App{
                         <span class="tooltip-text">New List</span>
                     </div>
                       
-                    <div class="tootip">
+                    <div class="tootip archive">
                         <span class="material-symbols-outlined hover small-icon">archive</span>
                         <span class="tooltip-text">Archive</span>
                     </div>
