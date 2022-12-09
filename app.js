@@ -39,13 +39,35 @@ class App{
     }
 
     handleAuth(){
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+              this.redirectToApp();
+              
+              var uid = user.uid;
+              // ...
+            } else {
+              // User is signed out
+              this.redirectToAuth();
+              // ...
+            }
+          });
+      
+    }
+
+    redirectToApp(){
+        this.$firebaseAuthContainer.style.display = "none";
+        this.$app.style.display = "block";
+
+    }
+
+    redirectToAuth(){
+        this.$firebaseAuthContainer.style.display = "block";
         this.ui.start('#firebaseui-auth-container', {
             signInOptions: [
               firebase.auth.EmailAuthProvider.PROVIDER_ID
             ], // Other config options...
-        });
+        }); 
     }
-
     addEventListeners(){
         document.body.addEventListener("click", (event) =>{
             this.handleFormClick(event);
