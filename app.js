@@ -25,10 +25,25 @@ class App{
         this.$closeModalForm = document.querySelector("#modal-btn")
         this.$sidebar = document.querySelector(".sidebar");
         this.$sidebarActiveItem = document.querySelector(".active-item");
+        this.$app = document.querySelector("#app");
+        this.$firebaseAuthContainer = document.querySelector("#firebaseui-auth-container");
+        this.$app.style.display = "none";
 
+       
 
-        this.addEventListeners();
-        this.render();
+        // Initialize the FirebaseUI Widget using Firebase.
+       this.ui = new firebaseui.auth.AuthUI(auth);
+       this.handleAuth();
+       this.addEventListeners();
+       this.render();
+    }
+
+    handleAuth(){
+        this.ui.start('#firebaseui-auth-container', {
+            signInOptions: [
+              firebase.auth.EmailAuthProvider.PROVIDER_ID
+            ], // Other config options...
+        });
     }
 
     addEventListeners(){
