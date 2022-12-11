@@ -6,6 +6,9 @@
     font-family: 'Roboto', sans-serif;
 
 }
+#app{
+    display: "none";
+}
 
 nav{
     display: flex;
@@ -99,6 +102,9 @@ input:focus{
     align-items: center;
 }
 
+.auth-user{
+    cursor: pointer;
+}
 /* styling main section */
 
 /* sidebar */

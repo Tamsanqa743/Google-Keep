@@ -28,8 +28,8 @@ class App{
         this.$app = document.querySelector("#app");
         this.$firebaseAuthContainer = document.querySelector("#firebaseui-auth-container");
         this.$app.style.display = "none";
-
-       
+        this.$authUserText = document.querySelector(".auth-user");
+        this.$logoutButton = document.querySelector(".logout");
 
         // Initialize the FirebaseUI Widget using Firebase.
        this.ui = new firebaseui.auth.AuthUI(auth);
@@ -42,9 +42,7 @@ class App{
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
               this.redirectToApp();
-              
-              var uid = user.uid;
-              // ...
+              this.$authUserText.innerHTML = user.displayName;
             } else {
               // User is signed out
               this.redirectToAuth();
@@ -52,6 +50,16 @@ class App{
             }
           });
       
+    }
+
+    handleSignOut(){
+        firebase.auth().signOut().then(()=>{
+            console.log("hi");
+            this.redirectToAuth();
+
+        }).catch((error)=>{
+            console.log("ERROR OCCURED", error);
+        });
     }
 
     redirectToApp(){
@@ -62,9 +70,11 @@ class App{
 
     redirectToAuth(){
         this.$firebaseAuthContainer.style.display = "block";
+        this.$app.style.display = "none";
         this.ui.start('#firebaseui-auth-container', {
             signInOptions: [
-              firebase.auth.EmailAuthProvider.PROVIDER_ID
+              firebase.auth.EmailAuthProvider.PROVIDER_ID,
+              firebase.auth.GoogleAuthProvider.PROVIDER_ID
             ], // Other config options...
         }); 
     }
@@ -95,6 +105,12 @@ class App{
         this.$sidebar.addEventListener("mouseout", (event)=>{
             this.handleToggleSidebar();
             
+        })
+
+        this.$logoutButton.addEventListener("click", (event)=>{
+            console.log("before");
+            this.handleSignOut();
+            console.log("after");
         })
     }
 
