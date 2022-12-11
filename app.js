@@ -72,6 +72,13 @@ class App{
         this.$firebaseAuthContainer.style.display = "block";
         this.$app.style.display = "none";
         this.ui.start('#firebaseui-auth-container', {
+            callbacks: {
+                signInSuccessWithAuthResult:(authResult, redirectUrl)=>{
+                    //user successfully signed in
+                    this.$authUserText.innerHTML = user.displayName;
+                    this.redirectToApp();
+                }
+            },
             signInOptions: [
               firebase.auth.EmailAuthProvider.PROVIDER_ID,
               firebase.auth.GoogleAuthProvider.PROVIDER_ID
