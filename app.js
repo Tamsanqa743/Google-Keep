@@ -8,10 +8,12 @@ class Note{
 
 class App{
     constructor(){
-        this.notes = JSON.parse(localStorage.getItem('notes')) || [];
+        // this.notes = JSON.parse(localStorage.getItem('notes')) || [];
         // [new Note("hello", "test title", "test text")];
+        this.notes = [];
         this.selectedNoteId = "";
         this.miniSidebar = true;
+        this.userId = "";
         this.$activeForm = document.querySelector(".active-form");
         this.$inactiveForm = document.querySelector(".inactive-form");
         this.$noteTitle = document.querySelector("#note-title");
@@ -35,12 +37,12 @@ class App{
        this.ui = new firebaseui.auth.AuthUI(auth);
        this.handleAuth();
        this.addEventListeners();
-       this.render();
     }
 
     handleAuth(){
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
+              this.userId = String(user.uid);
               this.redirectToApp();
               this.$authUserText.innerHTML = user.displayName;
             } else {
@@ -54,7 +56,6 @@ class App{
 
     handleSignOut(){
         firebase.auth().signOut().then(()=>{
-            console.log("hi");
             this.redirectToAuth();
 
         }).catch((error)=>{
@@ -65,6 +66,7 @@ class App{
     redirectToApp(){
         this.$firebaseAuthContainer.style.display = "none";
         this.$app.style.display = "block";
+        this.fetchNotes();
 
     }
 
@@ -73,8 +75,10 @@ class App{
         this.$app.style.display = "none";
         this.ui.start('#firebaseui-auth-container', {
             callbacks: {
+               
                 signInSuccessWithAuthResult:(authResult, redirectUrl)=>{
                     //user successfully signed in
+                    this.userId = authResult.user.uid;
                     this.$authUserText.innerHTML = user.displayName;
                     this.redirectToApp();
                 }
@@ -154,7 +158,7 @@ class App{
 
     addNote({title, text}){
         if (text != ""){
-            const newNote = new Note(cuid(),title, text);
+            const newNote = {id:cuid(),title, text};
             this.notes  = [...this.notes, newNote];
             this.render();
         }
@@ -240,7 +244,42 @@ class App{
     }
 
         saveNotes(){
-            localStorage.setItem('notes', JSON.stringify(this.notes));
+            db.collection("users").doc(this.userId).set({
+            notes:this.notes
+            })
+            .then(()=>{
+                console.log("Document successfully written!");
+            })
+            .catch((error) =>{
+                console.log("Error writting document: ", error);
+            });
+        }
+
+
+        fetchNotes(){
+            const docRef = db.collection("users").doc(this.userId);
+
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    console.log("Document data:", doc.data());
+                    this.notes = doc.data().notes;
+                    this.displayNotes();
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                    db.collection("users").doc(this.userId).set({
+                        notes:[]
+                        })
+                        .then(()=>{
+                            console.log("User successfully created!");
+                        })
+                        .catch((error) =>{
+                            console.log("Error writting document: ", error);
+                        });
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
         }
 
         render(){
@@ -297,6 +336,7 @@ class App{
                 </div>
         `).join("");
       }
+
 }
 
 const app = new App(); 
